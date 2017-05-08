@@ -6,7 +6,7 @@ import React, {PropTypes} from 'react';
 
 import TextInput from './TextInput.react';
 
-import {RIGHT, TAB} from './utils/keyCode';
+import {RIGHT, TAB, ENTER} from './utils/keyCode';
 
 /**
  * TypeaheadInput
@@ -176,6 +176,7 @@ const TypeaheadInput = React.createClass({
     } = this.props;
 
     switch (e.keyCode) {
+      case ENTER:
       case RIGHT:
       case TAB:
         const cursorPos = this._input.getInstance().selectionStart;
