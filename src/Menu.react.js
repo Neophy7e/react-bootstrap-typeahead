@@ -9,24 +9,19 @@ const BaseMenu = React.createClass({
   displayName: 'BaseMenu',
 
   componentDidMount() {
-    this.menu.addEventListener('touchmouve', this.onScroll);
+    document.documentElement.style.overflow = 'auto';  // firefox, chrome
+    document.body.scroll = "yes"; // ie only
   },
 
   componentWillUnMount() {
-    this.menu.removeEventListener('touchmouve', this.onScroll);
-  },
-
-  onScroll(e) {
-    e.preventDefault();
+    document.documentElement.style.overflow = 'hidden';  // firefox, chrome
+    document.body.scroll = "no"; // ie only
   },
 
   render() {
     return (
       <ul {...this.props}
         className={cx('dropdown-menu', this.props.className)}
-        ref={menu => {
-          this.menu = menu;
-        }}
       >
 
         {this.props.children}
