@@ -2350,18 +2350,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	  displayName: 'BaseMenu',
 
 	  componentDidMount: function componentDidMount() {
-	    document.documentElement.style.overflow = 'auto'; // firefox, chrome
-	    document.body.scroll = "yes"; // ie only
+	    this.menu.addEventListener('touchmouve', this.onScroll);
 	  },
 	  componentWillUnMount: function componentWillUnMount() {
-	    document.documentElement.style.overflow = 'hidden'; // firefox, chrome
-	    document.body.scroll = "no"; // ie only
+	    this.menu.removeEventListener('touchmouve', this.onScroll);
+	  },
+	  onScroll: function onScroll(e) {
+	    e.preventDefault();
 	  },
 	  render: function render() {
+	    var _this = this;
+
 	    return _react2.default.createElement(
 	      'ul',
 	      _extends({}, this.props, {
-	        className: (0, _classnames2.default)('dropdown-menu', this.props.className)
+	        className: (0, _classnames2.default)('dropdown-menu', this.props.className),
+	        ref: function ref(menu) {
+	          _this.menu = menu;
+	        }
 	      }),
 	      this.props.children
 	    );
