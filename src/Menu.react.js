@@ -1,18 +1,34 @@
 'use strict';
 
 import cx from 'classnames';
-import React, {Children, PropTypes} from 'react';
+import React, { Children, PropTypes } from 'react';
 
-import {BaseMenuItem} from './MenuItem.react';
+import { BaseMenuItem } from './MenuItem.react';
 
-const BaseMenu = props => (
-  <ul
-    {...props}
-    className={cx('dropdown-menu', props.className)}
-    onTouchMove={e => e.preventDefault()}>
-    {props.children}
-  </ul>
-);
+const BaseMenu = React.createClass({
+  displayName: 'BaseMenu',
+
+  componentDidMount() {
+    this.menu && this.menu.addEventListener('touchmove', this.onTouchMove);
+  },
+
+  componentWillUnMount() {
+    this.menu && this.menu.removeEventListener('touchmove', this.onTouchMove);
+  },
+
+  onTouchMove(e) {
+    e.preventDefault();
+  },
+
+  render() {
+    return (
+      <ul {...this.props} className={cx('dropdown-menu', this.props.className)}>
+        ref={ref => (this.menu = ref)}
+        {this.props.children}
+      </ul>
+    );
+  },
+});
 
 /**
  * Menu component that automatically handles pagination and empty state when
@@ -54,7 +70,7 @@ const Menu = React.createClass({
   },
 
   render() {
-    const {align, children, className, emptyLabel} = this.props;
+    const { align, children, className, emptyLabel } = this.props;
     const noResults = Children.count(children) === 0;
 
     // If an empty string is passed, suppress menu when there are no results.
@@ -62,18 +78,22 @@ const Menu = React.createClass({
       return null;
     }
 
-    const contents = noResults ?
-      <BaseMenuItem disabled>
-        {emptyLabel}
-      </BaseMenuItem> :
-      children;
+    const contents = noResults
+      ? <BaseMenuItem disabled>
+          {emptyLabel}
+        </BaseMenuItem>
+      : children;
 
     return (
       <BaseMenu
-        className={cx('bootstrap-typeahead-menu', {
-          'dropdown-menu-justify': align === 'justify',
-          'dropdown-menu-right': align === 'right',
-        }, className)}
+        className={cx(
+          'bootstrap-typeahead-menu',
+          {
+            'dropdown-menu-justify': align === 'justify',
+            'dropdown-menu-right': align === 'right',
+          },
+          className
+        )}
         style={this._getMenuStyle()}>
         {contents}
         {this._renderPaginationMenuItem()}
@@ -85,7 +105,7 @@ const Menu = React.createClass({
    * Allow user to see more results, if available.
    */
   _renderPaginationMenuItem() {
-    const {children, onPaginate, paginate, paginationText} = this.props;
+    const { children, onPaginate, paginate, paginationText } = this.props;
 
     if (paginate && Children.count(children)) {
       return [
@@ -105,7 +125,7 @@ const Menu = React.createClass({
   },
 
   _getMenuStyle() {
-    const {align, dropup, maxHeight, style} = this.props;
+    const { align, dropup, maxHeight, style } = this.props;
     const menuStyle = {
       ...style,
       display: 'block',

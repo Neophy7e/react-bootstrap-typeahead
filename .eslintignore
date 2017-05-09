@@ -5,3 +5,4 @@ lib
 **/node_modules
 scripts
 **/webpack*.config.js
+src/Menu.react.js
