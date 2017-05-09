@@ -8,7 +8,8 @@ import {BaseMenuItem} from './MenuItem.react';
 const BaseMenu = props => (
   <ul
     {...props}
-    className={cx('dropdown-menu', props.className)}>
+    className={cx('dropdown-menu', props.className)}
+    onTouchMove={e => e.preventDefault()}>
     {props.children}
   </ul>
 );

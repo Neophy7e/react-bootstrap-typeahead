@@ -2350,7 +2350,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return _react2.default.createElement(
 	    'ul',
 	    _extends({}, props, {
-	      className: (0, _classnames2.default)('dropdown-menu', props.className) }),
+	      className: (0, _classnames2.default)('dropdown-menu', props.className),
+	      onTouchMove: function onTouchMove(e) {
+	        return e.preventDefault();
+	      } }),
 	    props.children
 	  );
 	};
