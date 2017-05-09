@@ -2346,14 +2346,33 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var BaseMenu = function BaseMenu(props) {
-	  return _react2.default.createElement(
-	    'ul',
-	    _extends({}, props, {
-	      className: (0, _classnames2.default)('dropdown-menu', props.className) }),
-	    props.children
-	  );
-	};
+	var BaseMenu = _react2.default.createClass({
+	  displayName: 'BaseMenu',
+
+	  componentDidMount: function componentDidMount() {
+	    this.menu.addEventListener('touchmouve', this.onScroll);
+	  },
+	  componentWillUnMount: function componentWillUnMount() {
+	    this.menu.removeEventListener('touchmouve', this.onScroll);
+	  },
+	  onScroll: function onScroll(e) {
+	    e.preventDefault();
+	  },
+	  render: function render() {
+	    var _this = this;
+
+	    return _react2.default.createElement(
+	      'ul',
+	      _extends({}, this.props, {
+	        className: (0, _classnames2.default)('dropdown-menu', this.props.className),
+	        ref: function ref(menu) {
+	          _this.menu = menu;
+	        }
+	      }),
+	      this.props.children
+	    );
+	  }
+	});
 
 	/**
 	 * Menu component that automatically handles pagination and empty state when
