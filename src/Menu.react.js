@@ -1,7 +1,12 @@
 'use strict';
 
 import cx from 'classnames';
+<<<<<<< HEAD
 import React, { Children, PropTypes } from 'react';
+=======
+import React, {Children} from 'react';
+import PropTypes from 'prop-types';
+>>>>>>> c56db64691b518ea913845dc474b6bd45598d8d0
 
 import { BaseMenuItem } from './MenuItem.react';
 
@@ -34,40 +39,8 @@ const BaseMenu = React.createClass({
  * Menu component that automatically handles pagination and empty state when
  * passed a set of filtered and truncated results.
  */
-const Menu = React.createClass({
-  displayName: 'Menu',
-
-  propTypes: {
-    /**
-     * Specify menu alignment. The default value is `justify`, which makes the
-     * menu as wide as the input and truncates long values. Specifying `left`
-     * or `right` will align the menu to that side and the width will be
-     * determined by the length of menu item values.
-     */
-    align: PropTypes.oneOf(['justify', 'left', 'right']),
-    /**
-     * Message to display in the menu if there are no valid results.
-     */
-    emptyLabel: PropTypes.string,
-    /**
-     * Maximum height of the dropdown menu, in px.
-     */
-    maxHeight: PropTypes.number,
-    /**
-     * Prompt displayed when large data sets are paginated.
-     */
-    paginationText: PropTypes.string,
-  },
-
-  getDefaultProps() {
-    return {
-      align: 'justify',
-      emptyLabel: 'No matches found.',
-      maxHeight: 300,
-      paginate: true,
-      paginationText: 'Display additional results...',
-    };
-  },
+class Menu extends React.Component {
+  displayName = 'Menu';
 
   render() {
     const { align, children, className, emptyLabel } = this.props;
@@ -99,7 +72,7 @@ const Menu = React.createClass({
         {this._renderPaginationMenuItem()}
       </BaseMenu>
     );
-  },
+  }
 
   /**
    * Allow user to see more results, if available.
@@ -122,7 +95,7 @@ const Menu = React.createClass({
         </BaseMenuItem>,
       ];
     }
-  },
+  }
 
   _getMenuStyle() {
     const { align, dropup, maxHeight, style } = this.props;
@@ -144,7 +117,38 @@ const Menu = React.createClass({
     }
 
     return menuStyle;
-  },
-});
+  }
+}
+
+Menu.PropTypes = {
+  /**
+   * Specify menu alignment. The default value is `justify`, which makes the
+   * menu as wide as the input and truncates long values. Specifying `left`
+   * or `right` will align the menu to that side and the width will be
+   * determined by the length of menu item values.
+   */
+  align: PropTypes.oneOf(['justify', 'left', 'right']),
+  /**
+   * Message to display in the menu if there are no valid results.
+   */
+  emptyLabel: PropTypes.string,
+  /**
+   * Maximum height of the dropdown menu, in px.
+   */
+  maxHeight: PropTypes.number,
+  /**
+   * Prompt displayed when large data sets are paginated.
+   */
+  paginationText: PropTypes.string,
+};
+
+Menu.defaultProps = {
+  align: 'justify',
+  emptyLabel: 'No matches found.',
+  maxHeight: 300,
+  paginate: true,
+  paginationText: 'Display additional results...',
+};
+
 
 export default Menu;
