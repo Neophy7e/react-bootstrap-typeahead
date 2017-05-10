@@ -10,30 +10,13 @@ import PropTypes from 'prop-types';
 
 import { BaseMenuItem } from './MenuItem.react';
 
-const BaseMenu = React.createClass({
-  displayName: 'BaseMenu',
-
-  componentDidMount() {
-    this.menu && this.menu.addEventListener('touchmove', this.onTouchMove);
-  },
-
-  componentWillUnMount() {
-    this.menu && this.menu.removeEventListener('touchmove', this.onTouchMove);
-  },
-
-  onTouchMove(e) {
-    e.preventDefault();
-  },
-
-  render() {
-    return (
-      <ul {...this.props} className={cx('dropdown-menu', this.props.className)}>
-        ref={ref => (this.menu = ref)}
-        {this.props.children}
-      </ul>
-    );
-  },
-});
+const BaseMenu = props => (
+  <ul
+    {...props}
+    className={cx('dropdown-menu', props.className)}>
+    {props.children}
+  </ul>
+);
 
 /**
  * Menu component that automatically handles pagination and empty state when
