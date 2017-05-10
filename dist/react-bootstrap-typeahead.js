@@ -2363,11 +2363,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    return _react2.default.createElement(
 	      'ul',
-	      _extends({}, this.props, { className: (0, _classnames2.default)('dropdown-menu', this.props.className) }),
-	      'ref=',
-	      function (ref) {
-	        return _this.menu = ref;
-	      },
+	      _extends({}, this.props, { className: (0, _classnames2.default)('dropdown-menu', this.props.className),
+	        ref: function ref(_ref) {
+	          return _this.menu = _ref;
+	        } }),
 	      this.props.children
 	    );
 	  }

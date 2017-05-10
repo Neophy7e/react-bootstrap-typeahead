@@ -22,8 +22,8 @@ const BaseMenu = React.createClass({
 
   render() {
     return (
-      <ul {...this.props} className={cx('dropdown-menu', this.props.className)}>
-        ref={ref => (this.menu = ref)}
+      <ul {...this.props} className={cx('dropdown-menu', this.props.className)}
+        ref={ref => (this.menu = ref)}>
         {this.props.children}
       </ul>
     );
